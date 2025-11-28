@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login | Hyperlocal Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        Hyperlocal <span class="text-primary">Marketplace</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="auth-container">
+    <span class="badge-soft">Admin Panel</span>
+    <h2 class="auth-title mt-3">Admin Login</h2>
+    <p class="auth-subtitle">
+      Secure access for platform administrators only.
+    </p>
+
+    <!-- Connect this to backend later -->
+    <form action="../../backend/admin/login_admin.php" method="post">
+      <div class="mb-3">
+        <label class="form-label">Admin Email</label>
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          placeholder="admin@example.com"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          placeholder="Enter admin password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn-dark w-100 btn-rounded mt-2">
+        Login as Admin
+      </button>
+
+      <p class="auth-note mt-3 mb-0">
+        The admin account is private and managed only by the organization owners or authorized staff.
+      </p>
+    </form>
+  </div>
+</body>
+</html>

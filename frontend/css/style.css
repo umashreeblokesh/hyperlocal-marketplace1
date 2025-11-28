@@ -1,0 +1,86 @@
+/* Global styles */
+body {
+  background: radial-gradient(circle at top left, #eef2ff, #f9fafb);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Navbar brand */
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* Hero section */
+.hero-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.hero-highlight {
+  color: #2563eb;
+}
+
+/* Role cards */
+.role-card {
+  border-radius: 18px;
+  padding: 22px 18px;
+  background: #ffffff;
+  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  cursor: pointer;
+  height: 100%;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.16);
+  border-color: #2563eb;
+}
+
+.role-icon {
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+
+.role-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.role-description {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* Badge */
+.badge-soft {
+  background-color: #e0ebff;
+  color: #1d4ed8;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  padding: 4px 12px;
+}
+
+/* Footer text */
+.footer-text {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+/* Links */
+a.link-muted {
+    color: #6b7280;
+    text-decoration: none;
+}
+
+a.link-muted:hover {
+    color: #111827;
+    text-decoration: underline;
+}
+
+/* Auth helper note */
+.auth-note {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
