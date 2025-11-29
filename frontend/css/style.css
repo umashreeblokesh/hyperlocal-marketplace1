@@ -1,86 +1,415 @@
-/* Global styles */
-body {
-  background: radial-gradient(circle at top left, #eef2ff, #f9fafb);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+/* ---------- GLOBAL ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* Navbar brand */
+:root {
+  --bg-gradient: radial-gradient(circle at top left, #1f2937, #020617);
+  --card-bg: rgba(15, 23, 42, 0.78);
+  --card-border: rgba(148, 163, 184, 0.4);
+  --accent: #22c55e;       /* green */
+  --accent-soft: #bbf7d0;
+  --accent-secondary: #38bdf8; /* sky */
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --danger: #f97373;
+  --radius-xl: 18px;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.6);
+  --blur-strong: 22px;
+}
+
+/* Nice smooth transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "Segoe UI", sans-serif;
+}
+
+/* Wrap everything in a subtle overlay */
+.page-wrapper {
+  min-height: 100vh;
+  backdrop-filter: blur(10px);
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.85)) !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+  backdrop-filter: blur(18px);
+}
+
 .navbar-brand {
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
+  color: #f9fafb !important;
 }
 
-/* Hero section */
+.navbar-brand span {
+  color: var(--accent) !important;
+}
+
+.navbar .btn,
+.navbar a.btn {
+  border-radius: 999px;
+}
+
+/* ---------- HERO / TITLES ---------- */
 .hero-title {
-  font-size: 2.4rem;
-  font-weight: 700;
+  font-size: clamp(2.2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #f9fafb;
 }
 
 .hero-highlight {
-  color: #2563eb;
+  background: linear-gradient(120deg, #22c55e, #38bdf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-/* Role cards */
+.badge-soft {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--accent-soft);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- GLASS CARDS (used in many pages) ---------- */
+.role-card,
+.card,
+.card-elevated {
+  border-radius: var(--radius-xl) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(15, 23, 42, 0.7)
+  );
+  border: 1px solid var(--card-border) !important;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(var(--blur-strong));
+  color: var(--text-main);
+  transition: transform 0.18s ease, box-shadow 0.18s ease,
+    border-color 0.18s ease, background 0.18s ease;
+}
+
+.role-card:hover,
+.card-elevated:hover,
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+  border-color: var(--accent-secondary) !important;
+}
+
+/* Role card specifics */
 .role-card {
-  border-radius: 18px;
-  padding: 22px 18px;
-  background: #ffffff;
-  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  padding: 20px 16px;
   cursor: pointer;
-  height: 100%;
-}
-
-.role-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.16);
-  border-color: #2563eb;
 }
 
 .role-icon {
-  font-size: 2.8rem;
-  margin-bottom: 8px;
+  font-size: 2.4rem;
+  margin-bottom: 4px;
 }
 
 .role-title {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .role-description {
   font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ---------- BUTTONS ---------- */
+.btn-primary,
+.btn-success,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-success {
+  border-radius: 999px !important;
+  font-weight: 600;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.9rem;
+}
+
+.btn-primary {
+  background: linear-gradient(120deg, #22c55e, #16a34a);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(120deg, #16a34a, #22c55e);
+}
+
+.btn-success {
+  background: linear-gradient(120deg, #22c55e, #38bdf8);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(120deg, #38bdf8, #22c55e);
+}
+
+/* Outline button tweaks */
+.btn-outline-primary {
+  border-color: #38bdf8;
+  color: #e5f3ff;
+}
+.btn-outline-primary:hover {
+  background: rgba(56, 189, 248, 0.15);
+  color: #f9fafb;
+}
+
+.btn-outline-secondary {
+  border-color: #64748b;
+  color: #e5e7eb;
+}
+.btn-outline-secondary:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+/* ---------- FORMS ---------- */
+.form-control,
+.form-select,
+textarea.form-control {
+  background: rgba(15, 23, 42, 0.85);
+  color: #e5e7eb;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+textarea.form-control {
+  border-radius: 16px;
+  min-height: 90px;
+}
+
+.form-control::placeholder,
+.form-select::placeholder {
   color: #6b7280;
 }
 
-/* Badge */
-.badge-soft {
-  background-color: #e0ebff;
-  color: #1d4ed8;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  padding: 4px 12px;
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  outline: none;
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+  background: rgba(15, 23, 42, 0.95);
 }
 
-/* Footer text */
-.footer-text {
+/* Helper text below inputs */
+.text-helper,
+.auth-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ---------- TABLES (Admin/Vendor dashboards, orders, etc.) ---------- */
+.table {
+  color: var(--text-main);
+  margin-bottom: 0;
+}
+
+.table thead {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.table thead th {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.6);
   font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: #9ca3af;
 }
-/* Links */
-a.link-muted {
-    color: #6b7280;
-    text-decoration: none;
+
+.table tbody tr {
+  background: rgba(15, 23, 42, 0.7);
+  transition: background 0.15s ease;
 }
 
-a.link-muted:hover {
-    color: #111827;
-    text-decoration: underline;
+.table tbody tr:hover {
+  background: rgba(15, 23, 42, 0.95);
 }
 
-/* Auth helper note */
-.auth-note {
-    font-size: 0.8rem;
-    color: #9ca3af;
+.table td,
+.table th {
+  border-color: rgba(55, 65, 81, 0.7);
+}
+
+/* ---------- BADGES / STATUS ---------- */
+.badge {
+  border-radius: 999px;
+  font-weight: 500;
+  padding: 0.3em 0.7em;
+  font-size: 0.75rem;
+}
+
+.badge.bg-success {
+  background-color: rgba(34, 197, 94, 0.2) !important;
+  color: #bbf7d0 !important;
+}
+
+.badge.bg-danger {
+  background-color: rgba(248, 113, 113, 0.18) !important;
+  color: #fecaca !important;
+}
+
+.badge.bg-warning {
+  background-color: rgba(250, 204, 21, 0.18) !important;
+  color: #facc15 !important;
+}
+
+.badge.bg-info {
+  background-color: rgba(56, 189, 248, 0.18) !important;
+  color: #bae6fd !important;
+}
+
+/* ---------- FOOTER TEXT ---------- */
+.footer-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ---------- MAP CONTAINERS (Leaflet) ---------- */
+#vendor-map,
+#customer-map {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+/* ---------- SMALL ANIMATIONS ---------- */
+/* Fade-in effect for containers */
+.page-fade {
+  animation: pageFade 0.4s ease-out;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ✅ Make password text + dots WHITE everywhere */
+input[type="password"] {
+  color: #ffffff !important;
+  caret-color: #ffffff !important;   /* blinking cursor */
+}
+
+/* ✅ Placeholder color for password */
+input[type="password"]::placeholder {
+  color: #cbd5f5 !important;
+  opacity: 0.9;
+}
+
+/* ✅ Fix for Chrome autofill black background */
+input[type="password"]:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+/* ✅ FORCE ALL TEXT TO WHITE (GLOBAL FIX) */
+body,
+h1, h2, h3, h4, h5, h6,
+p, span, div, label, small,
+a, li, th, td {
+  color: #ffffff !important;
+}
+
+/* ✅ Placeholder color */
+::placeholder {
+  color: #cbd5f5 !important;
+  opacity: 0.9;
+}
+
+/* ✅ Input text color */
+input,
+textarea,
+select {
+  color: #ffffff !important;
+  background-color: rgba(0,0,0,0.4) !important;
+}
+
+/* ✅ Disable Bootstrap muted gray */
+.text-muted,
+.text-secondary,
+.text-helper {
+  color: #ffffff !important;
+  opacity: 0.9;
+}
+
+/* ✅ Link color */
+a {
+  color: #38bdf8 !important;
+}
+
+a:hover {
+  color: #7dd3fc !important;
+}
+/* ✅ Make TABLE content BLACK only */
+table,
+table th,
+table td,
+.table,
+.table th,
+.table td {
+  color: #000000 !important;
+}
+
+/* ✅ Keep table background clean */
+table {
+  background-color: #ffffff !important;
+}
+
+/* ✅ Table header style */
+table thead th {
+  background-color: #f1f5f9 !important;
+  color: #000000 !important;
+  font-weight: 600;
+}
+
+/* ✅ Table row hover effect */
+table tbody tr:hover {
+  background-color: #e2e8f0 !important;
+}
+.password-wrapper {
+  position: relative;
+}
+
+.password-wrapper input {
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: white;
 }

@@ -2,85 +2,264 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Customer Signup | Hyperlocal Marketplace</title>
+  <title>Customer Signup | Hyperlocal Mart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap -->
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
     rel="stylesheet"
   />
+
+  <!-- Global CSS -->
   <link rel="stylesheet" href="../css/style.css" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+
+  <style>
+    .map-wrapper {
+      position: relative;
+      margin-top: 6px;
+    }
+
+    #customer-map {
+      width: 100%;
+      height: 260px;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.6);
+    }
+
+    .map-search {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      z-index: 1000;
+    }
+
+    .map-search .form-control {
+      border-radius: 999px 0 0 999px;
+    }
+
+    .map-search button {
+      border-radius: 0 999px 999px 0;
+    }
+  </style>
 </head>
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-white shadow-sm">
-    <div class="container">
-      <a class="navbar-brand" href="../index.html">
-        Hyperlocal <span class="text-primary">Marketplace</span>
-      </a>
+<body class="bg-dark">
+<div class="page-wrapper page-fade">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card-elevated p-4">
+
+          <h3 class="mb-1 text-center">Customer Signup</h3>
+          <p class="text-helper text-center mb-3">
+            Create an account to discover nearby shops within a few kilometers.
+          </p>
+
+          <form action="../../backend/customer/register_customer.php" method="POST">
+
+            <!-- Name -->
+            <div class="mb-3">
+              <label class="form-label">Full Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+              <label class="form-label">Phone</label>
+              <input type="text" name="phone" class="form-control" required>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control" required>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <div class="password-wrapper">
+                <input type="password" name="password" class="form-control" required>
+                <span class="toggle-password">👁️</span>
+              </div>
+            </div>
+
+            <!-- LOCATION -->
+            <div class="mb-2">
+              <label class="form-label">Your Location</label>
+
+              <!-- Manual text + GPS -->
+              <div class="d-flex gap-2 mb-1">
+                <input
+                  type="text"
+                  name="location"
+                  id="customer-location"
+                  class="form-control"
+                  placeholder="Area / landmark (optional, will be updated by map)"
+                  required
+                >
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        onclick="useCustomerCurrentLocation()">
+                  Use my location
+                </button>
+              </div>
+
+              <div class="text-helper">
+                You can search inside the map, click on map, or auto-detect with GPS.
+              </div>
+
+              <!-- Map + overlay search -->
+              <div class="map-wrapper">
+                <div class="map-search input-group input-group-sm">
+                  <input
+                    type="text"
+                    id="customer-search"
+                    class="form-control"
+                    placeholder="Search area / place (e.g., Kolar bus stand)"
+                  >
+                  <button type="button"
+                          class="btn btn-outline-primary"
+                          onclick="searchCustomerLocation()">
+                    🔍
+                  </button>
+                </div>
+
+                <div id="customer-map"></div>
+              </div>
+            </div>
+
+            <!-- Hidden coords -->
+            <input type="hidden" name="latitude" id="customer-lat">
+            <input type="hidden" name="longitude" id="customer-lng">
+
+            <button type="submit" class="btn btn-success w-100 mt-3">
+              Create account
+            </button>
+
+            <p class="text-helper text-center mt-3 mb-0">
+              Already have an account?
+              <a href="customer-login.html" class="text-decoration-none">Login</a>
+            </p>
+          </form>
+
+        </div>
+      </div>
     </div>
-  </nav>
-
-  <div class="auth-container">
-    <span class="badge-soft">Customer Registration</span>
-    <h2 class="auth-title mt-3">Create Customer Account</h2>
-    <p class="auth-subtitle">
-      Signup to discover nearby verified shops and place quick orders.
-    </p>
-
-    <form action="../../backend/customer/register_customer.php" method="post">
-      <div class="mb-3">
-        <label class="form-label">Full Name</label>
-        <input
-          type="text"
-          name="name"
-          class="form-control"
-          placeholder="Your name"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Mobile Number</label>
-        <input
-          type="text"
-          name="phone"
-          class="form-control"
-          placeholder="10-digit mobile number"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input
-          type="email"
-          name="email"
-          class="form-control"
-          placeholder="you@example.com"
-          required
-        />
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Create Password</label>
-        <input
-          type="password"
-          name="password"
-          class="form-control"
-          placeholder="Minimum 6 characters"
-          required
-        />
-      </div>
-
-      <button type="submit" class="btn btn-success w-100 btn-rounded mt-2">
-        Create Account
-      </button>
-
-      <p class="text-center mt-3 mb-0">
-        Already have an account?
-        <a href="customer-login.html" class="link-muted">Login here</a>
-      </p>
-    </form>
   </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+let customerMap, customerMarker;
+
+function initCustomerMap() {
+  const defaultLat = 11.0168;
+  const defaultLng = 76.9558;
+
+  customerMap = L.map('customer-map').setView([defaultLat, defaultLng], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap'
+  }).addTo(customerMap);
+
+  customerMarker = L.marker([defaultLat, defaultLng]).addTo(customerMap);
+
+  customerMap.on('click', function(e) {
+    const lat = e.latlng.lat;
+    const lng = e.latlng.lng;
+    setCustomerPosition(lat, lng, false);
+  });
+}
+
+function setCustomerPosition(lat, lng, skipTextUpdate) {
+  customerMarker.setLatLng([lat, lng]);
+  customerMap.setView([lat, lng], customerMap.getZoom());
+
+  document.getElementById("customer-lat").value = lat;
+  document.getElementById("customer-lng").value = lng;
+
+  const locInput = document.getElementById("customer-location");
+  if (!skipTextUpdate) {
+    if (!locInput.value || locInput.value.match(/^\d+\.\d+,\s*\d+\.\d+$/)) {
+      locInput.value = lat.toFixed(5) + ", " + lng.toFixed(5);
+    }
+  }
+}
+
+function useCustomerCurrentLocation() {
+  if (!navigator.geolocation) {
+    alert("Your browser does not support location.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+      setCustomerPosition(lat, lng, false);
+      alert("✅ Location detected!");
+    },
+    function(error) {
+      if (error.code === 1) {
+        alert("❌ Permission denied. Please allow location access.");
+      } else {
+        alert("❌ Unable to get location.");
+      }
+    }
+  );
+}
+
+// Simple offline search: supports some city names + "lat,lng"
+function searchCustomerLocation() {
+  const raw = document.getElementById("customer-search").value.trim();
+  if (!raw) {
+    alert("Please type a place or 'lat,lng' to search.");
+    return;
+  }
+
+  const query = raw.toLowerCase();
+
+  // 1) If user typed coordinates like "12.96, 78.25"
+  const coordMatch = query.match(/^(-?\d+(\.\d+)?)\s*,\s*(-?\d+(\.\d+)?)$/);
+  if (coordMatch) {
+    const lat = parseFloat(coordMatch[1]);
+    const lng = parseFloat(coordMatch[3]);
+    setCustomerPosition(lat, lng, false);
+    return;
+  }
+
+  // 2) Predefined places for demo
+  const PRESET_LOCATIONS = {
+    "kolar bus stand":        { lat: 13.1360, lng: 78.1290 },
+    "coimbatore":   { lat: 11.0168, lng: 76.9558 },
+    "bangalore":    { lat: 12.9716, lng: 77.5946 },
+    "bengaluru":    { lat: 12.9716, lng: 77.5946 }
+  };
+
+  if (PRESET_LOCATIONS[query]) {
+    const loc = PRESET_LOCATIONS[query];
+    setCustomerPosition(loc.lat, loc.lng, false);
+  } else {
+    alert("For demo, search supports: Kolar, Coimbatore, Bangalore/Bengaluru or 'lat,lng'.");
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initCustomerMap);
+</script>
+
+<!-- Show/Hide password -->
+<script src="../js/toggle-password.js"></script>
 </body>
 </html>

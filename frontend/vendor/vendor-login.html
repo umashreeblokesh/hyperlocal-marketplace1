@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Admin Login | Hyperlocal Mart</title>
+  <title>Vendor Login | Hyperlocal Mart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link
@@ -16,20 +16,20 @@
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <!-- Small rectangle card (same style as customer) -->
+        <!-- Same small card as customer login -->
         <div class="card-elevated p-4">
 
-          <h3 class="mb-1 text-center">Admin Login</h3>
+          <h3 class="mb-1 text-center">Welcome, Shop Owner</h3>
           <p class="text-helper text-center mb-3">
-            Secure access for platform administrators only.
+            Login to manage your products and orders. Only approved vendors can access the dashboard.
           </p>
 
-          <form action="../../backend/admin/login_admin.php" method="POST">
-            <!-- Admin Email -->
+          <form action="../../backend/vendor/login_vendor.php" method="POST">
+            <!-- Email -->
             <div class="mb-3">
-              <label class="form-label">Admin Email</label>
+              <label class="form-label">Registered Email</label>
               <input type="email" name="email" class="form-control"
-                     placeholder="admin@example.com" required>
+                     placeholder="you@shop.com" required>
             </div>
 
             <!-- Password with eye -->
@@ -37,17 +37,18 @@
               <label class="form-label">Password</label>
               <div class="password-wrapper">
                 <input type="password" name="password" class="form-control"
-                       placeholder="Enter admin password" required>
+                       placeholder="Your vendor password" required>
                 <span class="toggle-password">👁️</span>
               </div>
             </div>
 
             <button type="submit" class="btn btn-success w-100 mt-2">
-              Login as Admin
+              Login as Vendor
             </button>
 
             <p class="text-helper text-center mt-3 mb-0">
-              This login is only for system owners and authorized staff.
+              New vendor?
+              <a href="vendor-signup.html" class="text-decoration-none">Register your shop</a>
             </p>
           </form>
 
